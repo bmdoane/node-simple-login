@@ -20,13 +20,25 @@ router.get('/register', (req, res) =>
 )
 
 // Clicking submit on the pug will create a form object
-router.post('/register', (req, res) => {
+router.post('/register', ({body: {email, password, confirmation}}, res, err) => {
+	// This log no longer works since req is deconstructed
 	//console.log("req.body", req.body);
-	if (req.body.password === req.body.confirmation) {
+	if (password === confirmation) {
 		// save data
-		console.log("req.body", req.body);
-		User.create( req.body )
-		res.redirect('/')
+		return new Promise((resolve, reject) => {
+			// Promise makes sure this resolves before user is created
+			bcrypt.hash(password, 10, (err, hash) => {
+				if (err) {
+					reject(err)
+				} else {
+					resolve(hash)
+				}
+			})
+		})
+		// This method needs to send an object, thus {}
+		.then(hash => User.create({email, password: hash }))
+		.then(() => res.redirect('/'))
+		.catch(err)
 	} else {
 		// Message tied to reg.pug file
 		res.render('register', {msg: 'Passwords do not match'})
