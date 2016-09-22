@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
 const routes = require('./routes/') // same as ./routes/index.js
+const { connect, disconnect } = require('./db/database')
 
 // Initialize
 const app = express()
@@ -34,7 +35,3 @@ connect()
 		)
 	})
 	.catch(console.error)
-
-app.listen(port, () =>
-	console.log(`Listening on port: ${port}`)
-)	

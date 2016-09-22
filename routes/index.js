@@ -45,3 +45,5 @@ router.post('/login', ({session, body: {email, password}}, res, err) => {
 		}
 	})
 })
+
+module.exports = router
