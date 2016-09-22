@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
 const routes = require('./routes/') // same as ./routes/index.js
+const { connect, disconnect } = require('./db/database')
 
 // Initialize
 const app = express()
@@ -13,14 +14,16 @@ const app = express()
 const port = process.env.Port || 3000
 app.set('port', port)
 
+// Pug Config
 app.set('view engine', 'pug')
 
 if (process.env.Node_ENV !== 'production') {
-	apps.locals.pretty = true
+	app.locals.pretty = true
 }
 
-// Middlewares
-
+// Middlewares - after instantiation and before routes
+// Listens for form data and renders req.body object
+app.use(bodyParser.urlencoded({ extended: false }))
 
 // Routes
 app.use(routes)

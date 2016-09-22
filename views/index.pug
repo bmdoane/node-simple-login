@@ -1,0 +1,13 @@
+.welcome
+  .welcome__text
+    h1 Welcome
+    if email
+      li: a(href='#') Logged in as #{email}
+      li(class={ active: page === 'Logout' })
+        a(href='/logout') Logout
+    else
+      li: a(href='#') Not logged in as #{email}
+      li(class={ active: page === 'Login' })
+        a(href='/login') Login
+      li(class={ active: page === 'Register' })
+        a(href='/register') Register
