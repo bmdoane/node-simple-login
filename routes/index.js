@@ -41,7 +41,7 @@ router.post('/login', ({session, body: {email, password}}, res, err) => {
 			session.email = email
 			res.redirect('/')
 		} else {
-			res.render('login', {msg: 'Password does not match'}
+			res.render('login', {msg: 'Password does not match'})
 		}
 	})
 })
