@@ -34,3 +34,7 @@ connect()
 		)
 	})
 	.catch(console.error)
+
+app.listen(port, () =>
+	console.log(`Listening on port: ${port}`)
+)	
