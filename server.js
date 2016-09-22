@@ -13,6 +13,7 @@ const app = express()
 const port = process.env.Port || 3000
 app.set('port', port)
 
+// Pug Config
 app.set('view engine', 'pug')
 
 if (process.env.Node_ENV !== 'production') {
