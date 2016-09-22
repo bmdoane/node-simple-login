@@ -21,8 +21,9 @@ if (process.env.Node_ENV !== 'production') {
 	app.locals.pretty = true
 }
 
-// Middlewares
-
+// Middlewares - after instantiation and before routes
+// Listens for form data and renders req.body object
+app.use(bodyParser.urlencoded({ extended: false }))
 
 // Routes
 app.use(routes)

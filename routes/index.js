@@ -11,13 +11,27 @@ router.get('/', (req, res) =>
 	res.render('index')
 )
 
-router.get('login', (req, res) =>
+router.get('/login', (req, res) =>
 	res.render('login', {page: 'Login'})
 )
 
-router.get('register', (req, res) =>
+router.get('/register', (req, res) =>
 	res.render('register', {page: 'Register'})
 )
+
+// Clicking submit on the pug will create a form object
+router.post('/register', (req, res) => {
+	//console.log("req.body", req.body);
+	if (req.body.password === req.body.confirmation) {
+		// save data
+		console.log("req.body", req.body);
+		User.create( req.body )
+		res.redirect('/')
+	} else {
+		// Message tied to reg.pug file
+		res.render('register', {msg: 'Passwords do not match'})
+	}
+})
 
 router.post('/login', ({session, body: {email, password}}, res, err) => {
 	User.findOne({ email })
