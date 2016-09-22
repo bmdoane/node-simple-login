@@ -17,7 +17,7 @@ app.set('port', port)
 app.set('view engine', 'pug')
 
 if (process.env.Node_ENV !== 'production') {
-	apps.locals.pretty = true
+	app.locals.pretty = true
 }
 
 // Middlewares
