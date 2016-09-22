@@ -24,17 +24,25 @@ router.post('/register', ({body: {email, password, confirmation}}, res, err) => 
 	// This log no longer works since req is deconstructed
 	//console.log("req.body", req.body);
 	if (password === confirmation) {
-		// save data
-		return new Promise((resolve, reject) => {
-			// Promise makes sure this resolves before user is created
-			bcrypt.hash(password, 10, (err, hash) => {
-				if (err) {
-					reject(err)
-				} else {
-					resolve(hash)
-				}
-			})
-		})
+		// To verify if email is already in db
+		User.findOne({email})
+			.then(user => {
+				if (user) {
+				res.render('register', { msg: 'Email is already registered'})
+			} else {
+				// save data
+				return new Promise((resolve, reject) => {
+					// Promise makes sure this resolves before user is created
+					bcrypt.hash(password, 10, (err, hash) => {
+						if (err) {
+							reject(err)
+						} else {
+							resolve(hash)
+						}
+					})
+				})
+			}
+		})				
 		// This method needs to send an object, thus {}
 		.then(hash => User.create({email, password: hash }))
 		.then(() => res.redirect('/'))
