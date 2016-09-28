@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 	next()
 })
 
-// Listens for form data and renders req.body object
+ 
 app.use(bodyParser.urlencoded({ extended: false }))
 
 // Routes
