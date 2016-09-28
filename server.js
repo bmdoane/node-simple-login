@@ -22,7 +22,17 @@ if (process.env.Node_ENV !== 'production') {
 }
 
 // Middlewares - after instantiation and before routes
-// Listens for form data and renders req.body object
+app.use(session({
+	store: new RedisStore(),
+	secret: 'simpleloginsupersecretkey'
+}))
+
+app.use((req, res, next) => {
+	app.locals.email = req.session.email
+	next()
+})
+
+ 
 app.use(bodyParser.urlencoded({ extended: false }))
 
 // Routes
