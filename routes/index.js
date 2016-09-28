@@ -81,6 +81,15 @@ router.post('/login', ({session, body: {email, password}}, res, err) => {
 	})
 })
 
+// login guard middleware - guard between public and private routes
+router.use((req, res, next) => {
+  if (req.session.email) {
+    next()
+  } else {
+    res.redirect('/login')
+  }
+})
+
 router.get('/logout', (req, res) => {
   if (req.session.email) {
     res.render('logout', { page: 'Logout'})
