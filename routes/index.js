@@ -53,6 +53,7 @@ router.post('/register', ({body: {email, password, confirmation}}, res, err) => 
 	}
 })
 
+// When you install session
 router.post('/login', ({session, body: {email, password}}, res, err) => {
 	User.findOne({ email })
 	.then(user => {

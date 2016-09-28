@@ -22,6 +22,15 @@ if (process.env.Node_ENV !== 'production') {
 }
 
 // Middlewares - after instantiation and before routes
+app.use(session({
+	secret: 'simpleloginsupersecretkey'
+}))
+
+app.use((req, res, next) => {
+	app.locals.email = req.session.email
+	next()
+})
+
 // Listens for form data and renders req.body object
 app.use(bodyParser.urlencoded({ extended: false }))
 
