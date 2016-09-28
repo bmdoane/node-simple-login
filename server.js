@@ -23,6 +23,7 @@ if (process.env.Node_ENV !== 'production') {
 
 // Middlewares - after instantiation and before routes
 app.use(session({
+	store: new RedisStore(),
 	secret: 'simpleloginsupersecretkey'
 }))
 
