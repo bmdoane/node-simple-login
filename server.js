@@ -23,7 +23,9 @@ if (process.env.Node_ENV !== 'production') {
 
 // Middlewares - after instantiation and before routes
 app.use(session({
-	store: new RedisStore(),
+	store: new RedisStore({
+		url: process.env.REDIS_URL || 'redis://localhost:6379'
+	}),
 	secret: 'simpleloginsupersecretkey'
 }))
 
