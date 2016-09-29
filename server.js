@@ -30,7 +30,7 @@ app.use(session({
 }))
 
 app.use((req, res, next) => {
-	app.locals.email = req.session.email
+	app.locals.email = req.session && req.session.email
 	next()
 })
 
