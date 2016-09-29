@@ -11,7 +11,7 @@ const { connect, disconnect } = require('./db/database')
 const app = express()
 
 // Configure
-const port = process.env.Port || 3000
+const port = process.env.PORT || 3000
 app.set('port', port)
 
 // Pug Config
